@@ -27,8 +27,8 @@ class Board
   def move_piece(color, start_pos, end_pos)
     raise "No piece at that position" if self[start_pos].nil? #may change later to nullpiece
     # raise "Piece cannot move to that position" if !valid_pos?(end_pos) #may change with color
-    val = self[start_pos]
-    self[end_pos] = val
+    value = self[start_pos]
+    self[end_pos] = value
     self[start_pos] = nil
   end
 
