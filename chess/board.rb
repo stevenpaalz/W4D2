@@ -46,10 +46,20 @@ b = Board.new
 # q = Queen.new("white", b, [5, 5])
 # b[[7, 6]] = k
 # b[[5, 5]] = q
-require "byebug"
-debugger
+# require "byebug"
+# debugger
 # # puts b[[4, 5]].empty?
 # p k.moves
 pawn = Pawn.new("white", b, [6, 2])
 b[[6, 2]] = pawn
+
+pawn2 = Pawn.new("white", b, [5, 3])
+b[[5, 3]] = pawn
+
+pawn3 = Pawn.new("black", b, [5, 1])
+b[[5, 1]] = pawn
+
+puts !b[[5,1]].empty?
+
 p pawn.moves
+# puts b[[5,2]].empty?

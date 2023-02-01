@@ -15,7 +15,7 @@ class Pawn < Piece
       new_pos[1] += step[1]
       if (new_pos[0] >= 0 && new_pos[0] <= 7) &&
          (new_pos[1] >= 0 && new_pos[1] <= 7) &&
-         (@board[new_pos].nil?)
+         @board[new_pos].empty?
         result << [new_pos[0], new_pos[1]]
       end
     end
@@ -25,7 +25,7 @@ class Pawn < Piece
       new_pos[1] += side[1]
       if (new_pos[0] >= 0 && new_pos[0] <= 7) &&
          (new_pos[1] >= 0 && new_pos[1] <= 7) &&
-         !@board[new_pos].nil? &&
+         !@board[new_pos].empty? &&
          @board[new_pos].color != self.color
         result << [new_pos[0], new_pos[1]]
       end

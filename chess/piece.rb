@@ -7,9 +7,9 @@ class Piece
     @pos = pos
   end
 
-  # def empty?
-  #   self.is_a? (NullPiece)
-  # end
+  def empty?
+    self.is_a? (NullPiece)
+  end
 end
 
 module Slideable
