@@ -1,4 +1,6 @@
 class Piece
+    attr_reader :color, :board, :pos
+
   def initialize(color, board, pos)
     @color = color
     @board = board
@@ -33,7 +35,7 @@ module Slideable
     dirs = self.move_dirs
     result = []
     dirs.each do |dir|
-      result << grow_unblocked_moves_in_dir(dir[0], dir[1])
+      result += grow_unblocked_moves_in_dir(dir[0], dir[1])
     end
 
     result
@@ -47,24 +49,28 @@ module Slideable
 
   def grow_unblocked_moves_in_dir(dx, dy)
     results = []
-    new_pos = self.pos
-    while (new_pos[0] > 0 && new_pos[0] < 7) && (new_pos[1] > 0 && new_pos[1] < 7)
-      new_pos[0] += dx
-      new_pos[1] += dy
+    new_pos = self.pos.dup
+    new_pos[0] += dx
+    new_pos[1] += dy
+    while (new_pos[0] >= 0 && new_pos[0] <= 7) && (new_pos[1] >= 0 && new_pos[1] <= 7)
       if !@board[new_pos] == nil
         if !@board[new_pos].color == self.color
           results << new_pos
           return results
         end
       else
-        results << new_pos
+        results << [new_pos[0],new_pos[1]]
       end
+      new_pos[0] += dx
+      new_pos[1] += dy
     end
     results
   end
 end
 
 module Stepable
+
+    
 end
 
 # def horizontal_dirs

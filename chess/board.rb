@@ -1,4 +1,5 @@
 require_relative "piece.rb"
+require_relative "null_piece.rb"
 
 class Board
   attr_reader :rows
@@ -6,9 +7,9 @@ class Board
   def initialize
     @rows = Array.new(8) { Array.new(8) }
     # @rows.each_with_index do |row, i|
-    #   if i == 0 || i == 1 || i == 7 || i == 6
+    #   if i != 0 && i != 1 && i != 7 && i != 6
     #     row.each_with_index do |col, j|
-    #       row[j] = Piece.new
+    #       row[j] = NullPiece.instance
     #     end
     #   end
     # end
@@ -16,12 +17,12 @@ class Board
 
   def [](pos)
     x, y = pos
-    self.rows[x][y]
+    @rows[x][y]
   end
 
   def []=(pos, val)
     x, y = pos
-    self.rows[x][y] = val
+    @rows[x][y] = val
   end
 
   def move_piece(color, start_pos, end_pos)
@@ -34,5 +35,6 @@ class Board
 
   private
 
-  attr_reader :null_piece
+  # attr_reader :null_piece
 end
+
