@@ -5,10 +5,12 @@ class Board
   attr_reader :rows
 
   def initialize
-    @rows = Array.new(8) { Array.new(8, nil) }
+    @rows = Array.new(8) { Array.new(8) }
     @rows.each_with_index do |row, i|
       if i != 0 && i != 1 && i != 6 && i != 7
-        8.times {row << NullPiece.instance }
+        row.each_with_index do |col, col_i|
+          row[col_i] = NullPiece.instance
+        end
       end
     end
   end
@@ -36,3 +38,15 @@ class Board
   # attr_reader :null_piece
 end
 
+
+require_relative "queen.rb"
+require_relative "knight.rb"
+
+b = Board.new
+k = Knight.new("white", b, [7,6])
+q = Queen.new("white", b, [5,5])
+b[[7,6]] = k
+b[[5,5]] = q
+require "byebug"
+# debugger
+k.moves

@@ -6,6 +6,10 @@ class Piece
     @board = board
     @pos = pos
   end
+
+  def empty?
+    self.is_a? (NullPiece)
+  end
 end
 
 module Slideable
@@ -53,7 +57,7 @@ module Slideable
     new_pos[0] += dx
     new_pos[1] += dy
     while (new_pos[0] >= 0 && new_pos[0] <= 7) && (new_pos[1] >= 0 && new_pos[1] <= 7)
-      if !@board[new_pos] == nil
+      if !@board[new_pos].empty? #call .empty? here
         if !@board[new_pos].color == self.color
           results << new_pos
           return results
@@ -70,16 +74,21 @@ end
 
 module Stepable
   def moves
-    result = []
 
     diffs = self.move_diffs
+
+    result = []
+    
     diffs.each do |diff|
-      new_pos = self.pos.dup
-      if (new_pos[0] >= 0 && new_pos[0] <= 7) &&
+        new_pos = self.pos.dup
+        new_pos[0] += diff[0]
+        new_pos[1] += diff[1]
+        if (new_pos[0] >= 0 && new_pos[0] <= 7) &&
          (new_pos[1] >= 0 && new_pos[1] <= 7) &&
-         @board[new_pos].color != self.color
-        result << new_pos
-      end
+         (@board[new_pos].empty? ||
+         @board[new_pos].color != self.color)
+            result << [new_pos[0], new_pos[1]]
+        end
     end
 
     result
