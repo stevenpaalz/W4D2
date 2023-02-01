@@ -1,7 +1,7 @@
 class Piece
-    attr_reader :color, :board, :pos
+  attr_reader :color, :board, :pos
 
-  def initialize(color = nil, board=nil, pos=nil)
+  def initialize(color = nil, board = nil, pos = nil)
     @color = color
     @board = board
     @pos = pos
@@ -59,7 +59,7 @@ module Slideable
           return results
         end
       else
-        results << [new_pos[0],new_pos[1]]
+        results << [new_pos[0], new_pos[1]]
       end
       new_pos[0] += dx
       new_pos[1] += dy
@@ -69,8 +69,27 @@ module Slideable
 end
 
 module Stepable
+  def moves
+    result = []
 
+    diffs = self.move_diffs
+    diffs.each do |diff|
+      new_pos = self.pos.dup
+      if (new_pos[0] >= 0 && new_pos[0] <= 7) &&
+         (new_pos[1] >= 0 && new_pos[1] <= 7) &&
+         @board[new_pos].color != self.color
+        result << new_pos
+      end
+    end
 
+    result
+  end
+
+  private
+
+  def move_diffs
+    raise NotImplementedError
+  end
 end
 
 # def horizontal_dirs
