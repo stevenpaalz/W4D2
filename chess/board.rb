@@ -5,13 +5,13 @@ class Board
 
   def initialize
     @rows = Array.new(8) { Array.new(8) }
-    @rows.each_with_index do |row, i|
-      if i == 0 || i == 1 || i == 7 || i == 6
-        row.each_with_index do |col, j|
-          row[j] = Piece.new
-        end
-      end
-    end
+    # @rows.each_with_index do |row, i|
+    #   if i == 0 || i == 1 || i == 7 || i == 6
+    #     row.each_with_index do |col, j|
+    #       row[j] = Piece.new
+    #     end
+    #   end
+    # end
   end
 
   def [](pos)

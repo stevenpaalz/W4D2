@@ -1,10 +1,17 @@
 require_relative "piece.rb"
 
 class Queen < Piece
+  #   def initialize()
+  #     super
+  #   end
 
-    include Slideable
+  def symbol
+    "♛".colorize(color)
+  end
 
-    def move_dirs
-        horizontal_dirs + diagonal_dirs
-    end
+  include Slideable
+
+  def move_dirs
+    horizontal_dirs + diagonal_dirs
+  end
 end

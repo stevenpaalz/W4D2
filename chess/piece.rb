@@ -1,74 +1,71 @@
-
 class Piece
-
-    def initialize(color, board, pos)
-        @color = color 
-        @board = board
-        @pos = pos
-    end
-
-
+  def initialize(color, board, pos)
+    @color = color
+    @board = board
+    @pos = pos
+  end
 end
 
-
 module Slideable
+  HORIZONTAL_DIRS = [
+    [0, -1], #left
+    [0, 1], #right
+    [-1, 0], #up
+    [1, 0], #down
+  ].freeze
 
-    HORIZONTAL_DIRS = [
-        [0, -1] #left
-        [0, 1] #right
-        [-1, 0] #up
-        [1, 0] #down
-    ].freeze
+  DIAGONAL_DIRS = [
+    [-1, -1], #Up and left
+    [1, -1], #Down and left
+    [-1, 1], #up and right
+    [1, 1], #down and right
+  ].freeze
 
-    DIAGONAL_DIRS = [
-        [-1, -1] #Up and left
-        [1, -1] #Down and left
-        [-1, 1] #up and right
-        [1, 1] #down and right
-    ].freeze
+  def horizontal_dirs
+    HORIZONTAL_DIRS
+  end
 
-    def horizontal_dirs
-        HORIZONTAL_DIRS
+  def diagonal_dirs
+    DIAGONAL_DIRS
+  end
+
+  def moves
+    dirs = self.move_dirs
+    result = []
+    dirs.each do |dir|
+      result << grow_unblocked_moves_in_dir(dir[0], dir[1])
     end
 
-    def diagonal_dirs
-        DIAGONAL_DIRS
-    end
+    result
+  end
 
-    def moves
+  private
 
-    end
+  def move_dirs
+    raise NotImplementedError
+  end
 
-    private 
-    
-    def move_dirs
-        raise NotImplementedError
-    end
-
-    def grow_unblocked_moves_in_dir(dx, dy)
-        results = []
-        new_pos = self.pos
-        while (new_pos[0] > 0 && new_pos[0] < 7) && (new_pos[1] > 0 && new_pos[1] < 7)
-            new_pos[0] += dx
-            new_pos[1] += dy
-            if !@board[new_pos] == nil
-                if !@board[new_pos].color == self.color
-                    results << new_pos
-                    return results
-                end
-            else
-                results << new_pos
-            end
+  def grow_unblocked_moves_in_dir(dx, dy)
+    results = []
+    new_pos = self.pos
+    while (new_pos[0] > 0 && new_pos[0] < 7) && (new_pos[1] > 0 && new_pos[1] < 7)
+      new_pos[0] += dx
+      new_pos[1] += dy
+      if !@board[new_pos] == nil
+        if !@board[new_pos].color == self.color
+          results << new_pos
+          return results
         end
-        results
+      else
+        results << new_pos
+      end
     end
-
+    results
+  end
 end
 
 module Stepable
-    
 end
-
 
 # def horizontal_dirs
 #     result = []
