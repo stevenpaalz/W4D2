@@ -5,14 +5,12 @@ class Board
   attr_reader :rows
 
   def initialize
-    @rows = Array.new(8) { Array.new(8) }
-    # @rows.each_with_index do |row, i|
-    #   if i != 0 && i != 1 && i != 7 && i != 6
-    #     row.each_with_index do |col, j|
-    #       row[j] = NullPiece.instance
-    #     end
-    #   end
-    # end
+    @rows = Array.new(8) { Array.new(8, nil) }
+    @rows.each_with_index do |row, i|
+      if i != 0 && i != 1 && i != 6 && i != 7
+        8.times {row << NullPiece.instance }
+      end
+    end
   end
 
   def [](pos)

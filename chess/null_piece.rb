@@ -4,10 +4,11 @@ require "singleton"
 class NullPiece < Piece
   include Singleton
 
-  def initialize(board)
-    @color = nil
-    @board = board
-    @pos = nil
+  def initialize
+    super
   end
 
+  def symbol
+    ' '
+  end
 end
