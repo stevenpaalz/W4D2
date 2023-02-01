@@ -38,15 +38,18 @@ class Board
   # attr_reader :null_piece
 end
 
-
 require_relative "queen.rb"
 require_relative "knight.rb"
-
+require_relative "pawn.rb"
 b = Board.new
-k = Knight.new("white", b, [7,6])
-q = Queen.new("white", b, [5,5])
-b[[7,6]] = k
-b[[5,5]] = q
+# k = Knight.new("white", b, [7, 6])
+# q = Queen.new("white", b, [5, 5])
+# b[[7, 6]] = k
+# b[[5, 5]] = q
 require "byebug"
-# debugger
-k.moves
+debugger
+# # puts b[[4, 5]].empty?
+# p k.moves
+pawn = Pawn.new("white", b, [6, 2])
+b[[6, 2]] = pawn
+p pawn.moves
